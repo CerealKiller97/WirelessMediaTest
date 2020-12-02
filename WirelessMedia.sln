@@ -2,6 +2,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WirelessMedia", "WirelessMedia\WirelessMedia.csproj", "{624C19E2-4009-4464-9F7B-5D5DB2A8C872}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F1D97A83-023B-4843-8A88-73708ED98451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{E654B1A0-79FC-40B9-AC81-89A0DAEEBE1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{A3B9A441-5180-4FE2-B846-BBF5A3C17B53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +20,21 @@ Global
 		{624C19E2-4009-4464-9F7B-5D5DB2A8C872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624C19E2-4009-4464-9F7B-5D5DB2A8C872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624C19E2-4009-4464-9F7B-5D5DB2A8C872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D97A83-023B-4843-8A88-73708ED98451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D97A83-023B-4843-8A88-73708ED98451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D97A83-023B-4843-8A88-73708ED98451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D97A83-023B-4843-8A88-73708ED98451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E654B1A0-79FC-40B9-AC81-89A0DAEEBE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E654B1A0-79FC-40B9-AC81-89A0DAEEBE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E654B1A0-79FC-40B9-AC81-89A0DAEEBE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E654B1A0-79FC-40B9-AC81-89A0DAEEBE1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B9A441-5180-4FE2-B846-BBF5A3C17B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B9A441-5180-4FE2-B846-BBF5A3C17B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B9A441-5180-4FE2-B846-BBF5A3C17B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B9A441-5180-4FE2-B846-BBF5A3C17B53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

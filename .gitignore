@@ -9,6 +9,8 @@ riderModule.iml
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+.idea
+
 # User-specific files
 *.rsuser
 *.suo

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    networks:
+      - wireless
+    image: postgres:13-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: wireless
+      POSTGRES_USER: wireless
+      POSTGRES_DB: wirelessdb
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresdb:/var/lib/postgresql/data/pgdata
+volumes:
+  postgresdb:
+    driver: local
+networks:
+  wireless:
+    driver: bridge
