@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Models;
 
 namespace Contracts.Products
@@ -9,6 +11,6 @@ namespace Contracts.Products
         /// Fetches all products from storage
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Product> Fetch();
+        public Task<IEnumerable<Product>> Fetch(CancellationToken cancellationToken);
     }
 }
