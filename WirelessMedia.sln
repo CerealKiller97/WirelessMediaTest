@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WirelessMedia", "WirelessMedia\WirelessMedia.csproj", "{624C19E2-4009-4464-9F7B-5D5DB2A8C872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{2BC0D4DC-3CF9-4451-99FB-B4668CFB769E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F1D97A83-023B-4843-8A88-73708ED98451}"
 EndProject

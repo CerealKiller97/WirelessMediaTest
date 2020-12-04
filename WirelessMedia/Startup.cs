@@ -23,7 +23,10 @@ namespace WirelessMedia
         {
             services.AddDbContext<WirlessDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("Default"));
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("Default"), 
+                    builder => builder.MigrationsAssembly("")
+                    );
                 options.UseSnakeCaseNamingConvention();
             });
             services.AddMediatR(typeof(Startup));
