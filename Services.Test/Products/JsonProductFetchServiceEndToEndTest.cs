@@ -15,18 +15,20 @@ namespace Services.Test.Products
     public class JsonProductFetchServiceEndToEndTest : IDisposable
     {
         private const string OriginalPath = "../../../Products/products-e2e.json";
-        private const string CopyPath = "../../../Products/products2.json";
+        private const string CopyPathInsert = "../../../Products/products2.json";
+        private const string CopyPathUpdate = "../../../Products/products3.json";
 
         public JsonProductFetchServiceEndToEndTest()
         {
-            File.Copy(OriginalPath, CopyPath);
+            File.Copy(OriginalPath, CopyPathInsert);
+            File.Copy(OriginalPath, CopyPathUpdate);
         }
 
 
         [Fact]
         public async Task TestInsertWithFileSave()
         {
-            var jsonService = new JsonProductService(CopyPath);
+            var jsonService = new JsonProductService(CopyPathInsert);
             var product = await jsonService.Insert(new JsonProductDto
             {
                 Name = "Insert Test",
@@ -44,7 +46,7 @@ namespace Services.Test.Products
             product.Price.Should().Be(2.0m);
             product.Categories.Should().NotBeNull().And.HaveCount(1);
             jsonService.Dispose();
-            var lines = await File.ReadAllLinesAsync(CopyPath);
+            var lines = await File.ReadAllLinesAsync(CopyPathInsert);
             var jsonProducts = new List<Product>();
             foreach (var line in lines)
             {
@@ -56,12 +58,44 @@ namespace Services.Test.Products
 
             jsonProducts.Should().NotBeNull().And.HaveCount(2);
         }
-        
+
+
+        [Fact]
+        public async Task TestUpdate()
+        {
+            var jsonService = new JsonProductService(CopyPathUpdate);
+            var product = await jsonService.Update(1, new JsonProductDto {Name = "Test"});
+
+            product.Should().NotBeNull();
+            product.Id.Should().Be(1);
+            product.Name.Should().Be("Test");
+
+            jsonService.Dispose();
+            var lines = await File.ReadAllLinesAsync(CopyPathUpdate);
+            var jsonProducts = new List<Product>();
+            foreach (var line in lines)
+            {
+                if (line != string.Empty)
+                {
+                    jsonProducts.Add(JsonSerializer.Deserialize<Product>(line));
+                }
+            }
+
+            jsonProducts.Should().NotBeNull().And.HaveCount(1);
+            jsonProducts[0].Name.Should().Be("Test");
+            jsonProducts[0].UpdatedAt.Should().NotBeNull();
+        }
+
         public void Dispose()
         {
-            if (File.Exists(CopyPath))
+            if (File.Exists(CopyPathInsert))
             {
-                File.Delete(CopyPath);
+                File.Delete(CopyPathInsert);
+            }
+
+            if (File.Exists(CopyPathUpdate))
+            {
+                File.Delete(CopyPathUpdate);
             }
         }
     }

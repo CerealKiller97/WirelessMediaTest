@@ -17,5 +17,7 @@ namespace Contracts.Products
         public Task<Product> FetchOne(int id);
 
         public Task<Product> Insert(TDto dto);
+
+        Task<Product> Update(int id, TDto dto);
     }
 }

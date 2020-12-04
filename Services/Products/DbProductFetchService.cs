@@ -40,5 +40,10 @@ namespace Services.Products
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<Product> Update(int id, DbProductDto dto)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -18,8 +18,8 @@ namespace Services.Products
     {
         private readonly string _path;
         private readonly ConcurrentBag<Product> _products = new();
-        private readonly StreamWriter _writer;
-        private readonly object _lockObject = new();
+        private static readonly object _lockObject = new();
+        private StreamWriter _writer;
         private int _id;
 
         public JsonProductService(string path)
@@ -57,7 +57,7 @@ namespace Services.Products
                 Vendor = dto.Vendor,
                 Categories = dto.Categories,
                 Description = dto.Description,
-                CreatedAt = new Instant(),
+                CreatedAt = SystemClock.Instance.GetCurrentInstant(),
                 UpdatedAt = null,
             };
 
@@ -70,6 +70,37 @@ namespace Services.Products
             var json = JsonSerializer.Serialize(product);
             await _writer.WriteLineAsync(json.ToCharArray());
             await _writer.FlushAsync();
+
+            return product;
+        }
+
+        public async Task<Product> Update(int id, JsonProductDto dto)
+        {
+            var product = _products.Single(p => p.Id == id);
+
+            product.Name = dto.Name;
+            product.Description = dto.Description;
+            product.Price = dto.Price;
+            product.Manufacturer = dto.Manufacturer;
+            product.Vendor = dto.Vendor;
+            product.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
+
+            lock (_lockObject)
+            {
+                _writer.Dispose();
+                var handler = File.Open(_path, FileMode.Open, FileAccess.ReadWrite);
+                handler.SetLength(0);
+                handler.Flush();
+                handler.Dispose();
+                _writer = File.AppendText(_path);
+                foreach (var prod in _products)
+                {
+                    var json = JsonSerializer.Serialize(product);
+                    _writer.WriteLine(json.ToCharArray());
+                }
+
+                _writer.Flush();
+            }
 
             return product;
         }
