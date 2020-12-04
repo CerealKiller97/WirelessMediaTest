@@ -5,7 +5,7 @@ using Models;
 
 namespace Contracts.Products
 {
-    public interface IProductService
+    public interface IProductFetchService
     {
         /// <summary>
         /// Fetches all products from storage

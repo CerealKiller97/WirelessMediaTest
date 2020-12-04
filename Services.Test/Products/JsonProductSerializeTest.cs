@@ -4,18 +4,17 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Models;
 using Services.Products;
 using Xunit;
 
 namespace Services.Test.Products
 {
-    public class JsonProductSerializeTest
+    public class JsonProductFetchServiceTest
     {
         [Fact]
         public async Task JsonFileNotFoundTest()
         {
-            var jsonService = new JsonProductService("./not-found.json");
+            var jsonService = new JsonProductFetchService("./not-found.json");
 
             await Assert.ThrowsAsync<FileNotFoundException>(async () =>
             {
@@ -26,19 +25,19 @@ namespace Services.Test.Products
         [Fact]
         public async Task JsonPathNullTest()
         {
-            var jsonService = new JsonProductService(null);
+            var jsonService = new JsonProductFetchService(null);
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await jsonService.Fetch(new CancellationToken());
             });
         }
-        
+
         [Theory]
         [InlineData("")]
         public async Task JsonInvalidPathTest(string path)
         {
-            var jsonService = new JsonProductService(path);
+            var jsonService = new JsonProductFetchService(path);
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
@@ -49,7 +48,7 @@ namespace Services.Test.Products
         [Fact]
         public async Task JsonDataLoadedSuccessfully()
         {
-            var jsonService = new JsonProductService("../../../Products/products.json");
+            var jsonService = new JsonProductFetchService("../../../Products/products.json");
 
             var products = (await jsonService.Fetch(new CancellationToken())).ToList();
 

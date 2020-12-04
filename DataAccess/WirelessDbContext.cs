@@ -3,15 +3,14 @@ using Models;
 
 namespace DataAccess
 {
-    public class WirlessDbContext : DbContext
+    public class WirelessDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
 
-        public WirlessDbContext(DbContextOptions<WirlessDbContext> options): base(options)
+        public WirelessDbContext(DbContextOptions<WirelessDbContext> options) : base(options)
         {
-            
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }

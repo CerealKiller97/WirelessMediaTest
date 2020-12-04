@@ -8,15 +8,17 @@ using Models;
 
 namespace Services.Products
 {
-    public class JsonProductService : IProductService
+    public class JsonProductFetchService : IProductFetchService
     {
         private readonly string _path;
 
         private static IEnumerable<Product> _products = null;
-        public JsonProductService(string path)
+
+        public JsonProductFetchService(string path)
         {
             _path = path;
         }
+
         public async Task<IEnumerable<Product>> Fetch(CancellationToken cancellationToken)
         {
             if (_products == null)
@@ -30,8 +32,9 @@ namespace Services.Products
         private static async Task Load(string path, CancellationToken cancellationToken)
         {
             await using var stream = File.OpenRead(path);
-            
-            _products = await JsonSerializer.DeserializeAsync<IEnumerable<Product>>(stream, cancellationToken: cancellationToken);
+
+            _products = await JsonSerializer.DeserializeAsync<IEnumerable<Product>>(stream,
+                cancellationToken: cancellationToken);
         }
     }
 }
