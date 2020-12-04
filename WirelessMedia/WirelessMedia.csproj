@@ -23,4 +23,8 @@
       <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Products\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

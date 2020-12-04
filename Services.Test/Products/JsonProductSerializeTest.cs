@@ -50,12 +50,19 @@ namespace Services.Test.Products
         {
             var jsonService = new JsonProductFetchService("../../../Products/products.json");
 
+            // ACT
             var products = (await jsonService.Fetch(new CancellationToken())).ToList();
 
+            // ASSERT
             products.Should().HaveCount(1);
             products[0].Should().NotBeNull();
-            products[0].Name.Should().BeEquivalentTo("abc");
-            products[0].Description.Should().BeEquivalentTo("Description 1");
+            products[0].Id.Should().Be(1);
+            products[0].Name.Should().Be("abc");
+            products[0].Description.Should().Be("Description 1");
+            products[0].Price.Should().Be(123);
+            products[0].CategoryId.Should().Be(1);
+            products[0].VendorId.Should().Be(1);
+            products[0].ManufacturerId.Should().Be(1);
         }
     }
 }

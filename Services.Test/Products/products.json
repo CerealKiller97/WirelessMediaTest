@@ -5,6 +5,7 @@
     "description": "Description 1",
     "manufacturer_id": 1,
     "vendor_id": 1,
-    "category_id": 1
+    "category_id": 1,
+    "price": 123
   }
 ]

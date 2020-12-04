@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Models
 {
-    public class Category : BaseModel
+    public class Category : BaseEntity
     {
         public string Name { get; set; }
 

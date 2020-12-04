@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Models
 {
-    public class Product : BaseModel
+    public class Product : BaseEntity
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
