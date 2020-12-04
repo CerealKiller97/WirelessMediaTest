@@ -1,3 +1,5 @@
+using System;
+using Contracts.Products;
 using DataAccess;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Products;
+using Transfer;
 
 namespace WirelessMedia
 {
@@ -24,13 +28,28 @@ namespace WirelessMedia
             services.AddDbContext<WirelessDbContext>(options =>
             {
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("Default"), 
+                    Configuration.GetConnectionString("Default"),
                     builder => builder.MigrationsAssembly("")
-                    );
+                );
                 options.UseSnakeCaseNamingConvention();
             });
             services.AddMediatR(typeof(Startup));
             services.AddControllersWithViews();
+
+            var storage = Configuration.GetValue<string>("ProductService");
+
+            switch (storage)
+            {
+                case "json":
+                    services.AddSingleton<IProductService<JsonProductDto>>((sp) =>
+                        new JsonProductService(Configuration.GetValue<string>("JsonPath")));
+                    break;
+                case "db":
+                    services.AddTransient<IProductService<DbProductDto>>(sp => sp.GetService<DbProductService>());
+                    break;
+                default:
+                    throw new ArgumentException($"Storage {storage} is not valid. Choose json or db");
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

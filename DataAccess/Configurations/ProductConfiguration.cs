@@ -22,19 +22,19 @@ namespace DataAccess.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
-            // TODO: Add DeleteBehaviour ON DELETE
-            
-            builder.HasOne(p => p.Category)
-                .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CategoryId);
+
+            builder.HasMany(p => p.Categories)
+                .WithMany(c => c.Products);
 
             builder.HasOne(p => p.Vendor)
                 .WithMany(s => s.Products)
-                .HasForeignKey(p => p.VendorId);
+                .HasForeignKey(p => p.VendorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p => p.Manufacturer)
                 .WithMany(m => m.Products)
-                .HasForeignKey(p => p.ManufacturerId);
+                .HasForeignKey(p => p.ManufacturerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
