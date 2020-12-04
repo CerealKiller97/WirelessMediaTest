@@ -17,8 +17,10 @@ namespace Services.Products
     public class JsonProductService : IProductService<JsonProductDto>, IDisposable
     {
         private readonly string _path;
-        private ConcurrentBag<Product> _products = new();
-        private StreamWriter _writer;
+        private readonly ConcurrentBag<Product> _products = new();
+        private readonly StreamWriter _writer;
+        private readonly object _lockObject = new();
+        private int _id;
 
         public JsonProductService(string path)
         {
@@ -40,6 +42,11 @@ namespace Services.Products
             return _products.Skip((page - 1) * perPage).Take(perPage);
         }
 
+        public async Task<Product> FetchOne(int id)
+        {
+            return _products.SingleOrDefault(p => p.Id == id);
+        }
+
         public async Task<Product> Insert(JsonProductDto dto)
         {
             var product = new Product
@@ -54,7 +61,11 @@ namespace Services.Products
                 UpdatedAt = null,
             };
 
-            _products.Add(product);
+            lock (_lockObject)
+            {
+                product.Id = ++_id;
+                _products.Add(product);
+            }
 
             var json = JsonSerializer.Serialize(product);
             await _writer.WriteLineAsync(json.ToCharArray());
@@ -74,6 +85,8 @@ namespace Services.Products
                     _products.Add(JsonSerializer.Deserialize<Product>(line));
                 }
             }
+
+            _id = _products.LastOrDefault()?.Id ?? 1;
         }
 
         public void Dispose()

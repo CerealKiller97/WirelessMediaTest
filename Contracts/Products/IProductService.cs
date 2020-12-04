@@ -14,6 +14,8 @@ namespace Contracts.Products
         /// <returns></returns>
         public Task<IEnumerable<Product>> Fetch(int page, int perPage, CancellationToken cancellationToken = default);
 
+        public Task<Product> FetchOne(int id);
+
         public Task<Product> Insert(TDto dto);
     }
 }

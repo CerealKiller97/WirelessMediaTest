@@ -31,6 +31,11 @@ namespace Services.Products
                 .ToListAsync(cancellationToken);
         }
 
+        public async Task<Product> FetchOne(int id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+
         public Task<Product> Insert(DbProductDto dto)
         {
             throw new System.NotImplementedException();

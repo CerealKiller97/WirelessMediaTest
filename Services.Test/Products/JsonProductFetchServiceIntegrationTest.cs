@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Models;
 using Services.Products;
-using Transfer;
 using Xunit;
 
 namespace Services.Test.Products
@@ -50,7 +47,7 @@ namespace Services.Test.Products
             manufacturer.Id.Should().Be(1);
             manufacturer.Name.Should().Be("Test manufacturer");
         }
-        
+
         [Fact]
         public async Task JsonPathNullTest()
         {
@@ -59,6 +56,23 @@ namespace Services.Test.Products
                 using var jsonService = new JsonProductService(null);
                 await jsonService.Fetch(1, 10);
             });
+        }
+
+        [Fact]
+        public async Task TestFetchOne()
+        {
+            using var jsonService = new JsonProductService(OriginalPath);
+            var product = await jsonService.FetchOne(1);
+            product.Should().NotBeNull();
+            product.Name.Should().Be("abc");
+        }
+
+        [Fact]
+        public async Task TestFetchOneNotFound()
+        {
+            using var jsonService = new JsonProductService(OriginalPath);
+            var product = await jsonService.FetchOne(2);
+            product.Should().BeNull();
         }
 
         [Theory]
